@@ -87,6 +87,7 @@
   'KnpPaginatorBundle:Pagination:twitter_bootstrap_pagination.html.twig' => __DIR__.'/../../../vendor/knplabs/knp-paginator-bundle/Resources/views/Pagination/twitter_bootstrap_pagination.html.twig',
   'LongevoSacBundle:Default:index.html.twig' => __DIR__.'/../../../src/Longevo/SacBundle/Resources/views/Default/index.html.twig',
   'LongevoChamadoBundle:Default:index.html.twig' => __DIR__.'/../../../src/Longevo/ChamadoBundle/Resources/views/Default/index.html.twig',
+  'AtividadeBundle:Default:index.html.twig' => __DIR__.'/../../../src/Duo/AtividadeBundle/Resources/views/Default/index.html.twig',
   'DebugBundle:Profiler:dump.html.twig' => __DIR__.'/../../../vendor/symfony/symfony/src/Symfony/Bundle/DebugBundle/Resources/views/Profiler/dump.html.twig',
   'WebProfilerBundle:Profiler:open.css.twig' => __DIR__.'/../../../vendor/symfony/symfony/src/Symfony/Bundle/WebProfilerBundle/Resources/views/Profiler/open.css.twig',
   'WebProfilerBundle:Profiler:results.html.twig' => __DIR__.'/../../../vendor/symfony/symfony/src/Symfony/Bundle/WebProfilerBundle/Resources/views/Profiler/results.html.twig',
@@ -140,5 +141,7 @@
   ':sac:new.html.twig' => __DIR__.'/../../../app/Resources/views/sac/new.html.twig',
   ':sac:index.html.twig' => __DIR__.'/../../../app/Resources/views/sac/index.html.twig',
   ':sac:edit.html.twig' => __DIR__.'/../../../app/Resources/views/sac/edit.html.twig',
+  ':atividade:index.html.twig' => __DIR__.'/../../../app/Resources/views/atividade/index.html.twig',
+  ':atividade:cadastro.html.twig' => __DIR__.'/../../../app/Resources/views/atividade/cadastro.html.twig',
   '::base.html.twig' => __DIR__.'/../../../app/Resources/views/base.html.twig',
 );

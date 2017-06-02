@@ -1,48 +1,21 @@
--- Table: public.cliente
-
--- DROP TABLE public.cliente;
-
-CREATE TABLE public.cliente
-(
-    id_cliente serial NOT NULL,
-    name character varying(255) COLLATE pg_catalog."default" NOT NULL,
-    email character varying(255) COLLATE pg_catalog."default" NOT NULL,
-    created_at timestamp(0) without time zone NOT NULL DEFAULT now(),
-    updated_at timestamp(0) without time zone NOT NULL DEFAULT now(),
-    CONSTRAINT cliente_pkey PRIMARY KEY (id_cliente)
+CREATE TABLE IF NOT EXISTS `atividade` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `description` varchar(600) NOT NULL,
+  `start_date` datetime NOT NULL,
+  `end_date` datetime NOT NULL,
+  `status_id` int(11) NOT NULL,
+  `situation` tinyint(1) NOT NULL DEFAULT 1,
+  PRIMARY KEY (id)
 );
 
--- Table: public.chamado
-
--- DROP TABLE public.chamado;
-
-CREATE TABLE public.chamado
-(
-    id serial NOT NULL,
-    id_pedido integer NOT NULL,
-    created_at timestamp(0) without time zone NOT NULL DEFAULT now(),
-    updated_at timestamp(0) without time zone NOT NULL DEFAULT now(),
-    title character varying(255) COLLATE pg_catalog."default" NOT NULL,
-    description text COLLATE pg_catalog."default" NOT NULL,
-    CONSTRAINT chamado_pkey PRIMARY KEY (id)
+CREATE TABLE IF NOT EXISTS `status` (
+  `status_id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,  
+  PRIMARY KEY (status_id)
 );
 
--- Table: public.pedido
-
--- DROP TABLE public.pedido;
-
-CREATE TABLE public.pedido
-(
-    id serial NOT NULL,
-    created_at timestamp(0) without time zone NOT NULL DEFAULT now(),
-    updated_at timestamp(0) without time zone NOT NULL DEFAULT now(),
-    title character varying(255) COLLATE pg_catalog."default" NOT NULL,
-    description text COLLATE pg_catalog."default",
-    id_cliente integer NOT NULL,
-    CONSTRAINT pedido_pkey PRIMARY KEY (id),
-    CONSTRAINT fk_c4ec16ce2a813255 FOREIGN KEY (id_cliente)
-        REFERENCES public.cliente (id_cliente) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-);
+INSERT INTO status
+(title) VALUES
+('Pendente'), ('Em Desenvolvimento'), ('Em Teste'), ('Concluído');
 

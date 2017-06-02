@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block body_id 'atividade' %}
+
+{% block titpag 'Cadastro da Atividade' %}
+
+{% block content %}
+    {% if error %}
+        <div class="alert alert-danger">
+            {{ error.msg }}
+        </div>
+    {% endif %}
+
+    {% if success %}
+        <div class="alert alert-success">
+            {{ success.msg }}
+        </div>
+    {% endif %}
+
+    <div class="content">
+        <div class="col-lg-12">
+            <div class="well">
+                <form action="{{ path('sac_index') }}" method="post">
+                    <fieldset>
+                        <legend>Atividade</legend>
+                        <div class="form-group">
+                            <label for="name">Nome</label>
+                            <input required type="text" id="name" name="name" value="" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="pedido">Descrição</label>
+                            <textarea name="description" class="form-control"></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-lg-6">
+                                <label for="title">Data Início</label>
+                                <input required type="text" id="start_date" name="start_date" value="" class="form-control"/>
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label for="title">Data Fim</label>
+                                <input required type="text" id="end_date" name="start_date" value="" class="form-control"/>
+                            </div>
+                        </div>                        
+                        <div class="form-group">
+                            <label for="description">Observação</label>
+                            <textarea id="description" name="description" class="form-control"></textarea>
+                        </div>
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
+                        <button type="submit" name="Submit" value="Enviar" class="btn btn-primary">
+                            Enviar
+                        </button>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block sidebar %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    
+{% endblock %}

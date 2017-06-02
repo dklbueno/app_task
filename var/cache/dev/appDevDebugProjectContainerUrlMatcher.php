@@ -105,14 +105,32 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
 
         }
 
-        // duo_atividade_default_index
-        if ($pathinfo === '/atividade') {
-            return array (  '_controller' => 'Duo\\AtividadeBundle\\Controller\\DefaultController::indexAction',  '_route' => 'duo_atividade_default_index',);
+        // atividade_index
+        if (rtrim($pathinfo, '/') === '') {
+            if (substr($pathinfo, -1) !== '/') {
+                return $this->redirect($pathinfo.'/', 'atividade_index');
+            }
+
+            return array (  '_controller' => 'Duo\\AtividadeBundle\\Controller\\DefaultController::indexAction',  '_route' => 'atividade_index',);
         }
 
-        // chamado_index
-        if ($pathinfo === '/chamado') {
-            return array (  '_controller' => 'Longevo\\ChamadoBundle\\Controller\\DefaultController::indexAction',  '_route' => 'chamado_index',);
+        if (0 === strpos($pathinfo, '/c')) {
+            // cadastro_index
+            if ($pathinfo === '/cadastro') {
+                if (!in_array($this->context->getMethod(), array('GET', 'POST', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'POST', 'HEAD'));
+                    goto not_cadastro_index;
+                }
+
+                return array (  '_controller' => 'Duo\\AtividadeBundle\\Controller\\DefaultController::cadastroAction',  '_route' => 'cadastro_index',);
+            }
+            not_cadastro_index:
+
+            // chamado_index
+            if ($pathinfo === '/chamado') {
+                return array (  '_controller' => 'Longevo\\ChamadoBundle\\Controller\\DefaultController::indexAction',  '_route' => 'chamado_index',);
+            }
+
         }
 
         // sac_index

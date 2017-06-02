@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <title>{% block title %}Sac - Longevo{% endblock %}</title>
+        <title>{% block title %}ATIVIDADES{% endblock %}</title>
         
         {% block stylesheets %}
             <link rel="stylesheet" href="{{ asset('bundles/longevosac/css/bootstrap-flatly-3.3.7.min.css') }}">
@@ -24,20 +24,20 @@
                 <div class="navbar navbar-default navbar-static-top" role="navigation">
                     <div class="container">
                         <div class="navbar-header">
-                            <a class="navbar-brand" href="{{ path('sac_index') }}">
-                                LONGEVO - SAC
+                            <a class="navbar-brand" href="{{ path('atividade_index') }}">
+                                ATIVIDADES
                             </a>
                         </div>
                         <div class="navbar-collapse collapse">
                             <ul class="nav navbar-nav navbar-right">
                                 <li>
-                                    <a href="{{ path('sac_index') }}">
-                                        <i class="fa fa-tasks" aria-hidden="true"></i> Cadastro de Chamado
+                                    <a href="{{ path('cadastro_index') }}">
+                                        <i class="fa fa-tasks" aria-hidden="true"></i> Cadastro de Atividades
                                     </a>
                                 </li>
                                 <li>
                                     <a href="{{ path('chamado_index') }}">
-                                        <i class="fa fa-list" aria-hidden="true"></i> Lista de Chamados
+                                        <i class="fa fa-list" aria-hidden="true"></i> Lista de Atividades
                                     </a>
                                 </li>
                             </ul>

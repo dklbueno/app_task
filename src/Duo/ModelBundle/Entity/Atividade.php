@@ -4,14 +4,15 @@ namespace Duo\ModelBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Atividade
  *
  * @ORM\Table(name="atividade")
- * @ORM\Entity(repositoryClass="Atividad\ModelBundle\Repository\ChamadoRepository")
+ * @ORM\Entity(repositoryClass="Duo\ModelBundle\Repository\AtividadeRepository")
  */
-class Atividade extends Timestampable
+class Atividade
 {
     /**
      * @var int
@@ -60,12 +61,12 @@ class Atividade extends Timestampable
     private $situation;
 
     /** 
-     * @var Status 
-     * 
-     * @ORM\ManyToOne(targetEntity="Status", inversedBy="atividades", cascade={"persist", "remove" }) 
-     * @ORM\JoinColumn(name="status_id", referencedColumnName="status_id", nullable=false) 
-     * @Assert\NotBlank 
-     */ 
+    * @var Status 
+    * 
+    * @ORM\ManyToOne(targetEntity="Status", inversedBy="atividade", cascade={"persist", "remove" }) 
+    * @ORM\JoinColumn(name="status_id", referencedColumnName="status_id", nullable=false) 
+    * @Assert\NotBlank 
+    */ 
     private $status;
 
     /**
@@ -74,6 +75,8 @@ class Atividade extends Timestampable
     public function __construct()
     {
         $this->startDate = new \DateTime();
+
+        $this->status = new ArrayCollection(); 
     }
 
     /**
