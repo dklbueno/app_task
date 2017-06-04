@@ -32,11 +32,17 @@ class AtividadeRepository extends \Doctrine\ORM\EntityRepository
 	{
 	    $qb = $this->getEntityManager()
         ->createQueryBuilder()
-        ->select('atv.id,atv.title,atv.description,sta.status_id,sta.title')
+        ->select('atv.id,atv.title,atv.description,atv.status_id,atv.startDate,atv.endDate,atv.situation')
         ->from('DuoModelBundle:Atividade','atv')
-        ->join('DuoModelBundle:Status','sta', \Doctrine\ORM\Query\Expr\Join::WITH, 'sta.status_id = atv.status')
         ->orderBy('atv.id', 'desc'); 
 	    return $qb->getQuery()->getResult();
+	    // $qb = $this->getEntityManager()
+     //    ->createQueryBuilder()
+     //    ->select('atv.id,atv.title,atv.description,atv.status_id,sta.title')
+     //    ->from('DuoModelBundle:Atividade','atv')
+     //    ->join('DuoModelBundle:Status','sta', \Doctrine\ORM\Query\Expr\Join::WITH, 'sta.status_id = atv.status')
+     //    ->orderBy('atv.id', 'desc'); 
+	    // return $qb->getQuery()->getResult();
 	    /*$em = $this->getEntityManager();
 		$connection = $em->getConnection();
 		$statement = $connection->prepare("

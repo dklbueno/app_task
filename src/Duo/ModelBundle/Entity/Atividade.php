@@ -60,23 +60,19 @@ class Atividade
     */
     private $situation;
 
-    /** 
-    * @var Status 
-    * 
-    * @ORM\ManyToOne(targetEntity="Status", inversedBy="atividade", cascade={"persist", "remove" }) 
-    * @ORM\JoinColumn(name="status_id", referencedColumnName="status_id", nullable=false) 
-    * @Assert\NotBlank 
-    */ 
-    private $status;
-
     /**
+    * @var int
+    * @ORM\Column(name="status_id", type="integer")
+    * @Assert\NotBlank  
+    */
+    private $status_id;   
+
+        /**
     * Construct
     */
     public function __construct()
     {
-        $this->startDate = new \DateTime();
-
-        $this->status = new ArrayCollection(); 
+        //$this->startDate = new \DateTime();
     }
 
     /**
@@ -206,28 +202,29 @@ class Atividade
     }
 
     /**
-     * Set status
+     * Set status_id
      *
-     * @param \Duo\ModelBundle\Entity\Status $status
+     * @param int $situation
      *
-     * @return Status
+     * @return Atividade
      */
-    public function setStatus(\Duo\ModelBundle\Entity\Status $status)
+    public function setStatusId($status_id)
     {
-        $this->status = $status;
+        $this->status_id = $status_id;
 
         return $this;
     }
 
     /**
-     * Get status
+     * Get status_id
      *
-     * @return \Duo\ModelBundle\Entity\Cliente
+     * @return int
      */
-    public function getStatus()
+    public function getStatusId()
     {
-        return $this->status;
+        return $this->status_id;
     }
 
+    
 }
 

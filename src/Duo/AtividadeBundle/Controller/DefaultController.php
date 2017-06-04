@@ -20,6 +20,12 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         $id = '';
+        $em = $this->getDoctrine()->getManager();
+        $lista_status = $em->getRepository('DuoModelBundle:Status')->findAll();
+
+        foreach($lista_status as $key=>$val){
+            $status[$val['status_id']] = $val;
+        }
 
         if($request->get('find')){
             $id = $request->get('id');
@@ -36,6 +42,7 @@ class DefaultController extends Controller
         return $this->render('atividade/index.html.twig',[
             'pagination' => $pagination,
             'id' => $id,
+            'status' => $status
         ]);
     }
 
@@ -47,68 +54,41 @@ class DefaultController extends Controller
     public function cadastroAction(Request $request)
     {
         $atividade = new Atividade();
-        $status = new Status();
+        $em = $this->getDoctrine()->getManager();
+        $status = $em->getRepository('DuoModelBundle:Status')->findAll();
 
         $erro = [];
         $success = [];
 
         if($request->get('Submit')){   
-            $name = $request->get('name');
-            $email = $request->get('email');
-            $id_pedido = $request->get('pedido'); 
             $title = $request->get('title');
-            $description = $request->get('description'); 
-            $novo_cliente = false;
+            $description = $request->get('description');
+            $start_date = new \DateTime($request->get('start_date')); 
+            $end_date = new \DateTime($request->get('end_date')); 
+            $situation = $request->get('situation'); 
+            $status_id = $request->get('status_id');
 
-            $cliente->setName($name);
-            $cliente->setEmail($email);
-            //Busca cliente por email e caso nao encontre cadastra
+            $atividade->setTitle($title);
+            $atividade->setDescription($description); 
+            $atividade->setStartDate($start_date);  
+            $atividade->setEndDate($end_date);
+            $atividade->setSituation($situation); 
+            $atividade->setStatusId($status_id); 
+
+            //dump($atividade); exit;
             $em = $this->getDoctrine()->getManager();
-            $find_cliente = $em->getRepository('LongevoModelBundle:Cliente')
-                                    ->findByEmail($email);
-            if(!$find_cliente){
-                $em = $this->getDoctrine()->getManager();                
-                $em->persist($cliente);
-                $em->flush($cliente);  
-                $id_cliente = $cliente->getId();
-                $novo_cliente = true; 
-                $success['msg'] = "Cliente cadastrado com sucesso!";             
-            }else{
-                $id_cliente = $find_cliente[0]->getId();
-            }
+            $em->persist($atividade);
+            $em->flush($atividade);    
 
-            if(!$novo_cliente){
-                //Busca pedido
-                $find_pedido = $em->getRepository('LongevoModelBundle:Pedido')
-                                        ->find($id_pedido);
-                if(!$find_pedido){
-                    $erro['msg'] = "Pedido não encontrado!";
-                }else{
-                    $em = $this->getDoctrine()->getManager();
-                    $find_pedido_cliente = $em->getRepository('LongevoModelBundle:Pedido')
-                                        ->findByCliente($id_cliente,$id_pedido);
-                    if(!$find_pedido_cliente){
-                        $erro['msg'] = "Não existe relação entre este pedido e cliente!";
-                    }else{
-                        $chamado->setTitle($title);
-                        $chamado->setDescription($description);
-                        $chamado->setIdPedido($id_pedido);
-                        //dump($chamado); exit;
-                        $em = $this->getDoctrine()->getManager();
-                        $em->persist($chamado);
-                        $em->flush($chamado);
-
-                        //return $this->redirectToRoute('sac_show', array('id' => $cliente->getId()));
-                        $success['msg'] = "Chamado criado com sucesso!";
-                    }
-                }
-            }            
+            $success['msg'] = "Atividade criado com sucesso!";
+            
 
         }
 
         return $this->render('atividade/cadastro.html.twig',[
             'error' => $erro,
-            'success' => $success
+            'success' => $success,
+            'status' => $status
         ]);
     }
 

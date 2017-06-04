@@ -10,4 +10,14 @@ namespace Duo\ModelBundle\Repository;
  */
 class StatusRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function findAll()
+	{
+	    $qb = $this->getEntityManager()
+        ->createQueryBuilder()
+        ->select('sta.status_id,sta.title')
+        ->from('DuoModelBundle:Status','sta')
+        ->orderBy('sta.status_id', 'desc'); 
+	    return $qb->getQuery()->getResult();
+
+	}
 }

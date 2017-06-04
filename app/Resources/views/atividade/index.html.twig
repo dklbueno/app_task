@@ -24,10 +24,10 @@
                 <td>{{ atividade.id }}</td>
                 <td>{{ atividade.title }}</td>
                 <td>{{ atividade.description }}</td>
-                <td>{{ atividade.start_date }}</td>
-                <td>{{ atividade.end_date }}</td>
-                <td></td>
-                <td></td>
+                <td>{{ atividade.startDate|date('d/m/Y') }}</td>
+                <td>{{ atividade.endDate|date('d/m/Y') }}</td>
+                <td>{{ status[atividade.status_id].title }}</td>
+                <td>{% if atividade.situation == 1 %} Ativo {% else %} Inativo {% endif %}</td>
             </tr>
             {% endfor %}
         </tbody>

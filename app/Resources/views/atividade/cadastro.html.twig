@@ -20,31 +20,45 @@
     <div class="content">
         <div class="col-lg-12">
             <div class="well">
-                <form action="{{ path('sac_index') }}" method="post">
+                <form action="{{ path('cadastro_index') }}" method="post">
                     <fieldset>
                         <legend>Atividade</legend>
                         <div class="form-group">
-                            <label for="name">Nome</label>
-                            <input required type="text" id="name" name="name" value="" class="form-control"/>
+                            <label for="title">Nome</label>
+                            <input required type="text" id="title" name="title" value="" class="form-control"/>
                         </div>
                         <div class="form-group">
-                            <label for="pedido">Descrição</label>
+                            <label for="description">Descrição</label>
                             <textarea name="description" class="form-control"></textarea>
                         </div>
                         <div class="row">
                             <div class="form-group col-lg-6">
-                                <label for="title">Data Início</label>
-                                <input required type="text" id="start_date" name="start_date" value="" class="form-control"/>
+                                <label for="start_date">Data Início</label>
+                                <input required type="text" id="start_date" name="start_date" value="" placeholder="MM/DD/YYY" class="form-control date" />
                             </div>
                             <div class="form-group col-lg-6">
-                                <label for="title">Data Fim</label>
-                                <input required type="text" id="end_date" name="start_date" value="" class="form-control"/>
+                                <label for="end_date">Data Fim</label>
+                                <input required type="text" id="end_date" name="end_date" value="" placeholder="MM/DD/YYY" class="form-control date"/>
                             </div>
-                        </div>                        
-                        <div class="form-group">
-                            <label for="description">Observação</label>
-                            <textarea id="description" name="description" class="form-control"></textarea>
                         </div>
+                        <div class="row">
+                            <div class="form-group col-lg-6">
+                                <label for="situation">Situação</label>
+                                <select class="form-control" name="situation">
+                                    <option value="1">Ativo</option>
+                                    <option value="1">Inativo</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label for="status_id">Situação</label>
+                                <select class="form-control" name="status_id">
+                                    {% for sta in status %}            
+                                    <option value="{{ sta.status_id }}">{{ sta.title }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>     
+                        
                         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
                         <button type="submit" name="Submit" value="Enviar" class="btn btn-primary">
                             Enviar
@@ -55,6 +69,7 @@
         </div>
 
     </div>
+
 {% endblock %}
 
 {% block sidebar %}
@@ -64,5 +79,19 @@
 {% block javascripts %}
     {{ parent() }}
 
+<script>
+    $(document).ready(function(){
+      var date_input=$('input.date'); //our date input has the name "date"
+      var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+      var options={
+        format: 'mm/dd/yyyy',
+        container: container,
+        todayHighlight: true,
+        autoclose: true,
+      };
+      date_input.datepicker(options);
+    })
+</script>
     
 {% endblock %}
+
