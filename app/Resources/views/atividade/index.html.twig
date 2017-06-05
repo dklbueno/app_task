@@ -48,7 +48,7 @@
                 <td>{{ atividade.title }}</td>
                 <td>{{ atividade.description }}</td>
                 <td>{{ atividade.startDate|date('d/m/Y') }}</td>
-                <td>{{ atividade.endDate|date('d/m/Y') }}</td>
+                <td>{% if atividade.endDate %} {{ atividade.endDate|date('d/m/Y') }} {% endif %}</td>
                 <td>{{ status[atividade.status_id].title }}</td>
                 <td>{% if atividade.situation == 1 %} Ativo {% else %} Inativo {% endif %}</td>
                 <td><button type="button" class="btn btn-success" onclick="location.href='editar/{{ atividade.id }}'">Editar</button></td>

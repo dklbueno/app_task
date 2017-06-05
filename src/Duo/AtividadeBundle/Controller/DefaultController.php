@@ -76,7 +76,9 @@ class DefaultController extends Controller
             $title = $request->get('title');
             $description = $request->get('description');
             $start_date = new \DateTime($request->get('start_date')); 
-            $end_date = new \DateTime($request->get('end_date')); 
+            $end_date = ($request->get('end_date'))
+                            ?new \DateTime($request->get('end_date'))
+                            :null; 
             $situation = $request->get('situation'); 
             $status_id = $request->get('status_id');
 
