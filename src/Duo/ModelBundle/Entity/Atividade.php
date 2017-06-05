@@ -56,7 +56,6 @@ class Atividade
     /**
     * @var int
     * @ORM\Column(name="situation", type="integer")
-    * @Assert\NotBlank  
     */
     private $situation;
 
