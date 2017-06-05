@@ -6,6 +6,28 @@
 
 {% block content %}
     <div class="content">
+
+    <form class="form-inline" method="post" action="{{ path('atividade_index') }}">
+      <div class="form-group">
+        <label for="email">Status:</label>
+        <select class="form-control" name="status_id">
+            <option value="0">Todos</option>
+            {% for sta in status %}            
+            <option value="{{ sta.status_id }}" {% if filtro['status_id'] == sta.status_id %} selected {% endif %} >{{ sta.title }}</option>
+            {% endfor %}
+        </select>        
+      </div>
+      <div class="form-group">
+        <label for="id_pedido">Situação:</label>
+        <select class="form-control" name="situation">
+            <option value="">Todos</option>
+            <option value="1" {% if filtro['situation'] == 1 %} selected {% endif %}>Ativo</option>
+            <option value="2" {% if filtro['situation'] == 2 %} selected {% endif %}>Inativo</option>
+        </select>
+      </div>      
+      <button type="submit" name="find" value="find" class="btn btn-default">Filtrar</button>
+    </form>
+
     <table id="atividades" class="display table table-striped table-hover" cellspacing="0" width="100%">
         <thead>
             <tr>
@@ -16,11 +38,12 @@
                 <th>Data Fim</th>
                 <th>Status</th>
                 <th>Situacao</th>
+                <th>Ação</th>
             </tr>
         </thead>
         <tbody>
             {% for atividade in pagination %}            
-            <tr>
+            <tr class="{% if atividade.status_id == 4 %} success {% endif %}">
                 <td>{{ atividade.id }}</td>
                 <td>{{ atividade.title }}</td>
                 <td>{{ atividade.description }}</td>
@@ -28,10 +51,13 @@
                 <td>{{ atividade.endDate|date('d/m/Y') }}</td>
                 <td>{{ status[atividade.status_id].title }}</td>
                 <td>{% if atividade.situation == 1 %} Ativo {% else %} Inativo {% endif %}</td>
+                <td><button type="button" class="btn btn-success" onclick="location.href='editar/{{ atividade.id }}'">Editar</button></td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+
+    <button type="button" class="btn btn-primary" onclick="location.href='{{ path('cadastro_index') }}'">Cadastrar Novo</button>
 
     {{ knp_pagination_render(pagination) }}
 

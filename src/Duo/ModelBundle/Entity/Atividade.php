@@ -54,8 +54,8 @@ class Atividade
     private $endDate;
 
     /**
-    * @var \Boolean
-    * @ORM\Column(name="situation", type="boolean")
+    * @var int
+    * @ORM\Column(name="situation", type="integer")
     * @Assert\NotBlank  
     */
     private $situation;
@@ -73,6 +73,20 @@ class Atividade
     public function __construct()
     {
         //$this->startDate = new \DateTime();
+    }
+
+    /**
+     * Set id
+     *
+     * @param int $id
+     *
+     * @return Atividade
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        
+        return $this;
     }
 
     /**

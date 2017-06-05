@@ -3,13 +3,3 @@ atividade:
     type:     annotation
     prefix:   /
 
-longevo_chamado:
-    resource: "@LongevoChamadoBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
-longevo_sac:
-    resource: "@LongevoSacBundle/Controller/"
-    type:     annotation
-    prefix:   /
-

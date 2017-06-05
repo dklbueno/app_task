@@ -16,9 +16,6 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
-            new Longevo\SacBundle\LongevoSacBundle(),
-            new Longevo\ModelBundle\LongevoModelBundle(),
-            new Longevo\ChamadoBundle\LongevoChamadoBundle(),
             new Duo\AtividadeBundle\AtividadeBundle(),
             new Duo\ModelBundle\DuoModelBundle(),
         ];

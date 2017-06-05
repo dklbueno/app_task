@@ -15,8 +15,7 @@ class StatusRepository extends \Doctrine\ORM\EntityRepository
 	    $qb = $this->getEntityManager()
         ->createQueryBuilder()
         ->select('sta.status_id,sta.title')
-        ->from('DuoModelBundle:Status','sta')
-        ->orderBy('sta.status_id', 'desc'); 
+        ->from('DuoModelBundle:Status','sta'); 
 	    return $qb->getQuery()->getResult();
 
 	}

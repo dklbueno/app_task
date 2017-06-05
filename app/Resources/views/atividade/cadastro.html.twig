@@ -2,7 +2,13 @@
 
 {% block body_id 'atividade' %}
 
-{% block titpag 'Cadastro da Atividade' %}
+{% block titpag %}
+    {% if editar is defined %}
+    Editar Atividade
+    {% else %}
+    Cadastro da Atividade
+    {% endif %}
+{% endblock %}
 
 {% block content %}
     {% if error %}
@@ -20,48 +26,48 @@
     <div class="content">
         <div class="col-lg-12">
             <div class="well">
-                <form action="{{ path('cadastro_index') }}" method="post">
+                <form action="{% if editar is defined %} /editar/{{ id }} {% else %} {{ path('cadastro_index') }} {% endif %} " method="post">
                     <fieldset>
                         <legend>Atividade</legend>
                         <div class="form-group">
-                            <label for="title">Nome</label>
-                            <input required type="text" id="title" name="title" value="" class="form-control"/>
+                            <label for="title">Nome (*)</label>
+                            <input required type="text" id="title" name="title" value="{{ title }}" class="form-control"/>
                         </div>
                         <div class="form-group">
-                            <label for="description">Descrição</label>
-                            <textarea name="description" class="form-control"></textarea>
-                        </div>
+                            <label for="description">Descrição (*)</label>
+                            <textarea required name="description" class="form-control">{{ description }}</textarea>
+                        </div>                        
                         <div class="row">
                             <div class="form-group col-lg-6">
-                                <label for="start_date">Data Início</label>
-                                <input required type="text" id="start_date" name="start_date" value="" placeholder="MM/DD/YYY" class="form-control date" />
-                            </div>
-                            <div class="form-group col-lg-6">
-                                <label for="end_date">Data Fim</label>
-                                <input required type="text" id="end_date" name="end_date" value="" placeholder="MM/DD/YYY" class="form-control date"/>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-lg-6">
-                                <label for="situation">Situação</label>
+                                <label for="situation">Situação (*)</label>
                                 <select class="form-control" name="situation">
-                                    <option value="1">Ativo</option>
-                                    <option value="1">Inativo</option>
+                                    <option value="1" {% if situation == 1 %} selected {% endif %}>Ativo</option>
+                                    <option value="2" {% if situation == 2 %} selected {% endif %}>Inativo</option>
                                 </select>
                             </div>
                             <div class="form-group col-lg-6">
-                                <label for="status_id">Situação</label>
+                                <label for="status_id">Status (*)</label>
                                 <select class="form-control" name="status_id">
                                     {% for sta in status %}            
-                                    <option value="{{ sta.status_id }}">{{ sta.title }}</option>
+                                    <option value="{{ sta.status_id }}" {% if status_id == sta.status_id %} selected {% endif %} >{{ sta.title }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
-                        </div>     
+                        </div>   
+                        <div class="row">
+                            <div class="form-group col-lg-6">
+                                <label for="start_date">Data Início (*)</label>
+                                <input required type="text" id="start_date" name="start_date" value="{{ start_date|date('d/m/Y') }}" placeholder="MM/DD/YYY" class="form-control date" />
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label for="end_date">Data Fim</label>
+                                <input type="text" id="end_date" name="end_date" value="{% if end_date %}{{ end_date|date('d/m/Y') }} {% endif %}" placeholder="MM/DD/YYY" class="form-control date"/>
+                            </div>
+                        </div>  
                         
                         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
-                        <button type="submit" name="Submit" value="Enviar" class="btn btn-primary">
-                            Enviar
+                        <button type="submit" name="Submit" value="Enviar" class="btn {% if editar is defined %} btn-success {% else %} btn-primary {% endif %}">
+                            {% if editar is defined %} Alterar {% else %} Enviar {% endif %}
                         </button>
                     </fieldset>
                 </form>
@@ -90,6 +96,18 @@
         autoclose: true,
       };
       date_input.datepicker(options);
+      {% if status_id == 4 %}
+        $('input[name=end_date]').prop('required',true);
+        $('input[name=end_date]').parent().find('label').html('Data Fim (*)');
+      {% endif %}
+      $('select[name=status_id]').click(function(){
+        $('input[name=end_date]').prop('required',false);
+        $('input[name=end_date]').parent().find('label').html('Data Fim');
+        if($(this).val() == 4){
+            $('input[name=end_date]').prop('required',true);
+            $('input[name=end_date]').parent().find('label').html('Data Fim (*)');
+        }
+      })
     })
 </script>
     
