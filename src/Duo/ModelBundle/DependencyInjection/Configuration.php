@@ -1,6 +1,6 @@
 <?php
 
-namespace Sac\ModelBundle\DependencyInjection;
+namespace Duo\ModelBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
