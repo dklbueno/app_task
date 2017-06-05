@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS `atividade` (
   `title` varchar(255) NOT NULL,
   `description` varchar(600) NOT NULL,
   `start_date` datetime NOT NULL,
-  `end_date` datetime NOT NULL,
+  `end_date` datetime NULL,
   `status_id` int(11) NOT NULL,
   `situation` tinyint(1) NOT NULL DEFAULT 1,
   PRIMARY KEY (id)
